@@ -1,0 +1,22 @@
+{
+  "name": "gistpost-example",
+  "version": "0.0.0",
+  "authors": [
+    "Freehaha <freehaha@gmail.com>"
+  ],
+  "main": "example.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.2",
+    "angular-resource": "~1.2.16",
+    "angular-sanitize": "~1.2.16"
+  }
+}

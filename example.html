@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Github Gist example</title>
+  <meta charset="utf-8" />
+  <!-- bower components -->
+  <script src="../angular/angular.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../angular-resource/angular-resource.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../angular-sanitize/angular-sanitize.js" type="text/javascript" charset="utf-8"></script>
+  <!-- bower components END-->
+  <script src="scripts/app.js" type="text/javascript" charset="utf-8"> </script>
+</head>
+<body>
+  <header>
+    
+  </header>
+  <div id="main" ng-app="githubEx">
+    <div ng-controller="MainCtrl">
+      <button type="button" ng-click="toggleSource()">Toggle source</button>
+      <pre ng-show="viewSource">
+        var Gist = $resource('https://api.github.com/gists');
+        $scope.viewSource = false;
+        $scope.result = null;
+        $scope.text = '';
+
+        $scope.toggleSource = function() {
+          $scope.viewSource = !$scope.viewSource;
+        };
+
+        //post a gist
+        $scope.postGist = function() {
+          var text = $scope.text;
+          var gist = new Gist({
+            description: 'test gist',
+            public: true,
+            files: {
+              "file1.txt": {
+                content: text
+              }
+            }
+          });
+          gist.$save(function(gist, respHeader) {
+            console.log(gist);
+            $scope.result = gist;
+            gist.html_url = $sce.trustAsUrl(gist.html_url);
+          });
+        };
+      </pre>
+      <br/>
+      <textarea ng-model="text" rows="8" cols="80"></textarea>
+      <br>
+      <button type="button" ng-click="postGist()">Post Gist</button>
+      <br>
+      <div ng-show="result != null">
+        Gist id: {{result.id}}<br>
+        link: <a ng-href="{{result.html_url}}">{{result.html_url}}</a>
+      </div>
+    </div>
+  </div>
+  <footer>
+    
+  </footer>
+</body>
+</html>
